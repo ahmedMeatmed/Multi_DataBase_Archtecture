@@ -31,8 +31,9 @@ class TenantMigrateCommand extends Command
         Config::set('database.connections.tenant.database', $tenant->db_name);
 
         DB::purge('tenant');
-        Artisan::call('migrate');
-
+        Artisan::call('migrate', [
+            '--seed' => true,
+        ]);
         $this->line(Artisan::output());
 
         $this->info('Isolated Multi-Tenant Migrations Processing Phase Completed.');
